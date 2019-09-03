@@ -1,0 +1,16 @@
+
+/* https://colorpalettes.net/color-palette-4026/ */
+.light-blue{
+    background-color: #d0e1ca;
+}
+
+.ultra-light-blue {
+background-color: #ecf5ed;
+}
+
+
+.carusel-bg-transition{
+background: #d0e1ca;
+background-image: url("IMAGE_URL"); /* fallback */
+background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
+}
