@@ -100,3 +100,15 @@ class Occurrence(InfoMixin):
 
     def __str__(self):
         return self.name
+
+
+class Page(models.Model):
+    text = models.TextField(default='', blank=True)
+    public = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text[:80]
+
+    def get_absolute_url(self):
+        return revese('page_detail', args=[str(self.id)])
+
