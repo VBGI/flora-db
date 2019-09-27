@@ -1,10 +1,10 @@
 
 /* https://colorpalettes.net/color-palette-4026/ */
-.light-blue{
+.light-green{
     background-color: #d0e1ca;
 }
 
-.ultra-light-blue {
+.ultra-light-green {
 background-color: #ecf5ed;
 }
 
@@ -13,4 +13,29 @@ background-color: #ecf5ed;
 background: #d0e1ca;
 background-image: url("IMAGE_URL"); /* fallback */
 background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
+}
+
+.footer-style{
+    padding-top: 5px;
+    background-color: #aec5aa;
+    min-height: 40px
+}
+
+
+.content-style{
+    padding-top: 5px;
+    background-color: #ecf5ed;
+    min-height: 100px;
+}
+
+.footer-left{
+    position: relative;
+    left: 5px; 
+    float: left;
+}
+
+.footer-right{
+    position: relative;
+    right: px; 
+    float: right;
 }
