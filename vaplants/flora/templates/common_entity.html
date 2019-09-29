@@ -1,0 +1,45 @@
+{% extends base.html %}
+{% block content %}
+{% if object %}
+<h1>{{ object }}</h1>
+
+{% if object.genus.family %}
+    <p><strong>Family:</strong> <a href="{% url 'family_detail' object.genus.family.id %}">{{ object.genus.family }}</a></p>
+{% endif %}
+
+{% if object.genus %}
+    <p><strong>Genus:</strong>  <a href="{% url 'genus_detail' object.genus.id %}"> {{ object.genus }} </a></p>
+{% endif %}
+
+{{ object.info }}
+
+{% if object.occurrence_set %}
+    <h3>Occurrences: </h3>
+    {{ object.occurrence_set.first }}
+{% endif %}
+
+{% if object.link_set %}
+    <ul>
+    {% for link in object.link_set.all %}
+        <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if object.genus_set %}
+<hr>
+<h3>Related genera</h3>
+<ul>
+    {% for obj in object.genus_set.all %}
+    <li>
+       <a href="{% url 'genus_detail' obj.id %}">{{ obj.genus }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+{% endif %}
+{% endblock content %}

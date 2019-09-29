@@ -1,0 +1,15 @@
+{% extends  base.html %}
+
+{% if object and object.public %}
+    {% block title %}
+    {{ block.super }}: {{ object.title }}
+    {% endblock title %}
+{% endif %}
+
+{% block content %}
+    {% if object.public %}
+        {{ object.text|safe }}  
+    {% else %}
+        <h2>Content of the page isn't published yet. </h2>
+    {% endif %}
+{% endblock content %}

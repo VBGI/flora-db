@@ -39,3 +39,17 @@ background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
     right: px; 
     float: right;
 }
+
+
+.common-object-list {
+    -webkit-columns: 25% 4;
+    -moz-columns: 25% 4;
+    columns: 25% 4;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .common-object-list ul li {
+    list-style: none;
+    padding-top: 5px; 
+  }

@@ -1,0 +1,45 @@
+{% extends base.html %}
+
+{% block  content %}
+{% if species or genera or families %}
+    <h1> Search results: </h1>
+    {% if species %}
+        <h2>Species: </h2>
+        <ul>
+        {% for sp in species %}
+            <li>
+                <a href="{% url  'species-detail' sp.pk %}">{{ sp }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if genera %}
+        <hr>
+        <h2>Genera: </h2>
+        <ul>
+        {% for genus in genera %}
+            <li>
+                <a href="{% url  'genus-detail' genus.pk %}">{{ genus }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if families %}
+        <hr>
+        <h2>Families: </h2>
+        <ul>
+        {% for family in families %}
+            <li>
+                <a href="{% url  'family-detail' family.pk %}">{{ family }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% else %}
+<h1>
+    No records found for the current search query.
+</h1>
+{% endif %}
+{% endblock content %}
