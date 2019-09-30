@@ -78,6 +78,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'USER': 'botsad',
+        'CHARSET': 'UTF-8',
+        'TEST': {
+                'NAME': 'testdatabase.db',
+            },
     }
 }
 
@@ -119,3 +124,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = 'media'
+
+STATIC_ROOT = 'static'
+
+MEDIA_URL = '/media/'

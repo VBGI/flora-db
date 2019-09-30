@@ -7,7 +7,7 @@ from django.urls import reverse
 class UpdaterMixin(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeingKey(get_user_model(), null=True, blank=True,
+    user = models.ForeignKey(get_user_model(), null=True, blank=True,
                              on_delete=models.SET_NULL)
 
     class Meta:
@@ -20,7 +20,7 @@ class RarityMixin(models.Model):
                       ('E', 'Endanger'),
                       ('V', 'Vanishing'),
                       )
-    rarity = models.CharField(choices=RARITY_CHOICES, default='',
+    rarity = models.CharField(choices=RARITY_CHOICES, max_length=1, default='R',
                               blank=True, null=True)
 
     class Meta:
@@ -54,7 +54,7 @@ class Family(UpdaterMixin, InfoMixin, RarityMixin):
 
 class Genus(UpdaterMixin, InfoMixin, RarityMixin):
     genus = models.CharField(max_length=50, default='')
-    family = models.ForeingKey(Family)
+    family = models.ForeignKey(Family, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('genus', )
@@ -75,7 +75,13 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
     epithet = models.CharField(max_length=50, default='', blank=True,
                                verbose_name='species epithet')
     authorship = models.CharField(max_length=50, default='', blank=True)
-    genus = models.ForeingKey(Genus, blank=False)
+    genus = models.ForeignKey(Genus, blank=False, on_delete=models.CASCADE)
+    synonym = models.ManyToManyField('self', through='SpeciesSynonim',
+                                     symmetrical=False,
+                                     through_fields=('from_species',
+                                                     'to_species'),
+                                     related_name='+'
+                                     )
 
     def __str__(self):
         return self.full_name
@@ -88,12 +94,28 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
         return f'{self.genus} {self.epithet}'
 
 
+class SpeciesSynonim(models.Model):
+    SYN_CHOICES = (
+                   ('N', 'Normal'),
+                   ('A', 'Advanced')
+                   )
+    from_species = models.ForeignKey(Species, related_name='related_from',
+                                     on_delete=models.CASCADE)
+    to_species = models.ForeignKey(Species, related_name='related_to',
+                                    on_delete=models.CASCADE)
+    synonym_table = models.CharField(max_length=1,
+                                     choices=SYN_CHOICES, default='N')
+
+
 class Link(models.Model):
     title = models.CharField(max_length=500, default='')
-    url = models.UrlField(max_length=500, default='')
-    species = models.ForeingKey(Species, null=True, blank=True)
-    genus = models.ForeingKey(Genus, null=True, blank=True)
-    family = models.ForeingKey(Family, null=True, blank=True)
+    url = models.URLField(max_length=500, default='')
+    species = models.ForeignKey(Species, null=True, blank=True,
+                                on_delete=models.CASCADE)
+    genus = models.ForeignKey(Genus, null=True, blank=True,
+                              on_delete=models.CASCADE)
+    family = models.ForeignKey(Family, null=True, blank=True,
+                               on_delete=models.CASCADE)
 
     def __str__(self):
         if self.family:
@@ -109,16 +131,19 @@ class Link(models.Model):
 
 
 class Occurrence(InfoMixin):
-    name = models.CharField(max_length=300, defualt='')
+    name = models.CharField(max_length=300, default='')
     description = models.TextField(blank=True, default='')
 
     # TODO: will be added when migratin to Postgres + PostGIS
     # points = models.MultiPointfield()
     # polygons = models.MultiPolygonField()
 
-    species = models.ForeingKey(Species, blank=True, null=True)
-    genus = models.ForeingKey(Genus, blank=True, null=True)
-    family = models.ForeingKey(Family, blank=True, null=True)
+    species = models.ForeignKey(Species, blank=True, null=True,
+                                on_delete=models.CASCADE)
+    genus = models.ForeignKey(Genus, blank=True, null=True,
+                              on_delete=models.CASCADE)
+    family = models.ForeignKey(Family, blank=True, null=True,
+                               on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -139,5 +164,5 @@ class Page(models.Model):
 
 class TitleImage(models.Model):
     image = models.ImageField(upload_to='title_images/', blank=True,
-                              max_legnth=500)
+                              max_length=500)
     caption = models.TextField(default='', blank=True)

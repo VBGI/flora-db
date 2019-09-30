@@ -1,0 +1,26 @@
+[
+    {
+      "model": "flora.titleimage",
+      "pk": 1,
+      "fields": {
+        "image": "static/img/plant-1.jpg",
+        "caption": "Lennon"
+      }
+    },
+    {
+      "model": "flora.titleimage",
+      "pk": 2,
+      "fields": {
+        "image": "static/img/plant-2.jpg",
+        "caption": "Lennon"
+      }
+    },
+    {
+      "model": "flora.titleimage",
+      "pk": 3,
+      "fields": {
+        "image": "static/img/plant-3.jpg",
+        "caption": "Lennon"
+      }
+    }
+  ]

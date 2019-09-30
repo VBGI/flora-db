@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView, View
 from django.db.models import Q
 from .models import Family, Genus, Species, Page, Link, TitleImage
 
 
-class TitleMixinView(DetailView):
+class TitleMixinView:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -12,7 +12,7 @@ class TitleMixinView(DetailView):
         return context
 
 
-class CommonDetailView(TitleMixinView):
+class CommonDetailView(TitleMixinView, DetailView):
     template_name = "common_entity.html"
 
 
@@ -32,7 +32,7 @@ class LinkDetailView(CommonDetailView):
     model = Link
 
 
-class PageView(TitleMixinView):
+class PageView(TitleMixinView, DetailView):
     template_name = "page.html"
     model = Page
 
@@ -91,21 +91,21 @@ class GenusListView(CommonListView):
                                genus__istartswith=self.kwargs.get('fl', ''))
 
 
-class SearchView(TemplateView, TitleMixinView):
+class SearchView(TitleMixinView, TemplateView):
     template_name = "search.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q = kwargs['q']
+        q = self.request.GET.get('q', '')
         context['families'] = Family.objects.filter(Q(info__icontains=q)|
                                                     Q(family__icontains=q))
         context['genera'] = Genus.objects.filter(Q(info__icontains=q)|
                                                  Q(genus__icontains=q))
         context['species'] = Species.objects.filter(Q(info__icontains=q)|
-                                                    Q(genus__icontains=q)|
+                                                    Q(genus__genus__icontains=q)|
                                                     Q(epithet__icontains=q)|
-                                                    Q(occurrence_set__name__icontains=q)|
-                                                    Q(occurrence_set__description__icontains=q)
+                                                    Q(occurrence__name__icontains=q)|
+                                                    Q(occurrence__description__icontains=q)
                                                     )
 
         return context

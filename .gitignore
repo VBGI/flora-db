@@ -3,3 +3,5 @@
 __pycache__
 __vscode__
 .vscode
+media
+db.sqlite3
