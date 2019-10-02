@@ -20,15 +20,17 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
+ 
+
                 <div class="collapse navbar-collapse" id="navbarCollapsed">
                     {% if pages %}
-                    <ul class="navbar-nav mr-auto"></ul>
+                      <ul class="navbar-nav mr-auto">                 
                         {%for page in pages %}
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ page.get_absolute_url }}"> {{ page.title }}</a>
                         </li>
                         {% endfor %}
-                    </ul>
+                      </ul>
                     {% endif %}
                   <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search-view' %}">
                     <input class="form-control mr-sm-2" type="search" name='q' placeholder="Search" aria-label="Search">
@@ -39,7 +41,7 @@
           
 
           {% if title_images %}
-          <div id="titleCarousel" class="carousel slide" data-ride="carousel">
+          <div id="titleCarousel" class="carousel slide" data-ride="carousel" data-interval="10000" data-pause="true">
               <div class="carousel-inner">
                   {% for img in title_images %}
                       <div class="carousel-item {% if forloop.first %} active {% endif %}">
@@ -71,7 +73,18 @@
           </div>
           <div class="col-sm-12">
             <div class="footer-style">
-                {% block footer %}{% endblock %}
+                {% block footer %}
+                <div class="footer-left">
+                  <ul style="padding: 0px; margin:0px">
+                    <li><a href="https://github.com/vbgi/flora-db/" title="View project on GitHub">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" width="30px">
+                    </li>
+                    <li><a href="http://botsad.ru/" title="Botanical Garden-Institute FEB RAS">
+                        <img src="http://botsad.ru/static/images/bgi_logo.png" width="30px">
+                    </li>
+                  </ul>
+                </div>
+                {% endblock %}
             </div>
           </div>
   </div>
