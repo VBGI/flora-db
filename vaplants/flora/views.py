@@ -9,6 +9,7 @@ class TitleMixinView:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title_images'] = TitleImage.objects.all()
+        context['pages'] = Page.objects.filter(public=True)
         return context
 
 
