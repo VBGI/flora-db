@@ -13,12 +13,12 @@
 
 {{ object.info }}
 
-{% if object.occurrences %}
+{% if object.occurrences.all %}
     <h3>Occurrences: </h3>
     {{ object.occurrences.first }}
 {% endif %}
 
-{% if object.links %}
+{% if object.links.all %}
     <h3>Links: </h3>
     <ul>
     {% for link in object.links.all %}

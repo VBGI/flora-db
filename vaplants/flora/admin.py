@@ -19,7 +19,7 @@ class OccurrenceAdminInline(GenericTabularInline):
 
 class SpeciesAdmin(admin.ModelAdmin):
     inlines = (SpeciesSynonimInline, LinkAdminInline, OccurrenceAdminInline)
-    fields = ('genus', 'name', 'rarity', 'info')
+    fields = ('genus', 'name', 'authorship', 'rarity', 'info')
 
 class FamilyAdmin(admin.ModelAdmin):
     inlines = (LinkAdminInline, OccurrenceAdminInline)

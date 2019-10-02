@@ -43,7 +43,7 @@
               <div class="carousel-inner">
                   {% for img in title_images %}
                       <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                          <img src="{{ img.image }}" class="d-block w-100" alt="{{ img.caption|striptags }}">
+                          <img src="/{{ img.image }}" class="d-block w-100" alt="{{ img.caption|striptags }}">
                           {% if img.caption %}
                               <div class="carousel-caption">
                                   {{ img.caption|safe }}
