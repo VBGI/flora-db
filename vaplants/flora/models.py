@@ -114,7 +114,7 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
         return f'{self.genus} {self.name}'
 
     def full_name_as_html(self):
-        return mark_safe(f'{self.genus}')
+        return mark_safe(f'<em>{self.genus} {self.name}</em> {self.authorship}')
 
 class SpeciesSynonim(models.Model):
     SYN_CHOICES = (
@@ -152,7 +152,7 @@ class Page(models.Model):
         return self.text[:80]
 
     def get_absolute_url(self):
-        return reverse('page-detail', args=[str(self.id)])
+        return reverse('page-detail', args=[str(self.slug)])
 
 
 class TitleImage(models.Model):
