@@ -12,5 +12,5 @@ urlpatterns = [
     path('genera', GenusListView.as_view(), name='genus-list'),
     path('species', SpeciesListView.as_view(), name='species-list'),
     path('', SpeciesListView.as_view(), name='main-page'),
-    path('<slug:slug>', PageView.as_view(), name='page-view'),
+    path('<slug:slug>', PageView.as_view(), name='page-detail'),
 ]
