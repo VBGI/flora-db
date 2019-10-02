@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.functional import cached_property
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
+from django.utils.safestring import mark_safe
 from django.urls import reverse
 
 
@@ -8,7 +12,7 @@ class UpdaterMixin(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(get_user_model(), null=True, blank=True,
-                             on_delete=models.SET_NULL)
+                             on_delete=models.SET_NULL, editable=False)
 
     class Meta:
         abstract = True
@@ -28,52 +32,60 @@ class RarityMixin(models.Model):
 
 
 class InfoMixin(models.Model):
+    name = models.CharField(max_length=50, default='')
     info = models.TextField(blank=True, default='', null=False)
 
     class Meta:
+        ordering = ('name', )
         abstract = True
 
+    def __str__(self):
+        return self.name.title()
 
-class Family(UpdaterMixin, InfoMixin, RarityMixin):
-    family = models.CharField(max_length=50, default='')
+    def clean(self):
+        self.name = self.name.strip().lower()
+
+
+class ForeignRelationMixin(models.Model):
+    allowed_models = models.Q(app_label='flora', model='family') | \
+                     models.Q(app_label='flora', model='genus') | \
+                     models.Q(app_label='flora', model='species')
+    content_type = models.ForeignKey(ContentType,
+                                     limit_choices_to=allowed_models,
+                                     on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     class Meta:
-        ordering = ('family', )
+        abstract = True
+    
+
+class Family(UpdaterMixin, InfoMixin, RarityMixin):
+    links = GenericRelation('Link', related_query_name='family')
+    occurrences = GenericRelation('Occurrence', related_query_name='family')
+
+    class Meta(InfoMixin.Meta):
         verbose_name_plural = 'Families'
         verbose_name = 'Family'
-
-    def __str__(self):
-        return self.family
 
     def get_absolute_url(self):
         return reverse('family-detail', args=[str(self.id)])
 
-    def clean(self):
-        self.family = self.family.strip().lower()
-
 
 class Genus(UpdaterMixin, InfoMixin, RarityMixin):
-    genus = models.CharField(max_length=50, default='')
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
+    links = GenericRelation('Link', related_query_name='genus')
+    occurrences = GenericRelation('Occurrence', related_query_name='genus')
 
-    class Meta:
-        ordering = ('genus', )
-        verbose_name_plural = 'Genuses'
+    class Meta(InfoMixin.Meta):
+        verbose_name_plural = 'Genera'
         verbose_name = 'Genus'
-
-    def __str__(self):
-        return self.genus
 
     def get_absolute_url(self):
         return reverse('genus-detail', args=[str(self.id)])
 
-    def clean(self):
-        self.genus = self.genus.strip().lower()
-
 
 class Species(UpdaterMixin, InfoMixin, RarityMixin):
-    epithet = models.CharField(max_length=50, default='', blank=True,
-                               verbose_name='species epithet')
     authorship = models.CharField(max_length=50, default='', blank=True)
     genus = models.ForeignKey(Genus, blank=False, on_delete=models.CASCADE)
     synonym = models.ManyToManyField('self', through='SpeciesSynonim',
@@ -82,17 +94,27 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
                                                      'to_species'),
                                      related_name='+'
                                      )
+    links = GenericRelation('Link', related_query_name='species')
+    occurrences = GenericRelation('Occurrence', related_query_name='species')
+
+    class Meta:
+        ordering = ('genus__name', 'name')
 
     def __str__(self):
         return self.full_name
+
+    def clean(self):
+        pass
 
     def get_absolute_url(self):
         return reverse('species-detail', args=[str(self.id)])
 
     @property
     def full_name(self):
-        return f'{self.genus} {self.epithet}'
+        return f'{self.genus} {self.name}'
 
+    def full_name_as_html(self):
+        return mark_safe(f'{self.genus}')
 
 class SpeciesSynonim(models.Model):
     SYN_CHOICES = (
@@ -107,46 +129,17 @@ class SpeciesSynonim(models.Model):
                                      choices=SYN_CHOICES, default='N')
 
 
-class Link(models.Model):
+class Link(UpdaterMixin, ForeignRelationMixin):
     title = models.CharField(max_length=500, default='')
     url = models.URLField(max_length=500, default='')
-    species = models.ForeignKey(Species, null=True, blank=True,
-                                on_delete=models.CASCADE)
-    genus = models.ForeignKey(Genus, null=True, blank=True,
-                              on_delete=models.CASCADE)
-    family = models.ForeignKey(Family, null=True, blank=True,
-                               on_delete=models.CASCADE)
-
-    def __str__(self):
-        if self.family:
-            return f'{self.url} : Family: {self.family.family}'
-        elif self.genus:
-            return f'{self.url} : Genus: {self.genus.genus}'
-        elif self.species:
-            return f'{self.url} : Species: {self.species}'
-        return f"Unreferenced link object: {self.pk}"
-
-    def get_absolute_url(self):
-        return reverse('link-detail', args=[str(self.id)])
 
 
-class Occurrence(InfoMixin):
+class Occurrence(UpdaterMixin, ForeignRelationMixin, InfoMixin):
     name = models.CharField(max_length=300, default='')
-    description = models.TextField(blank=True, default='')
 
     # TODO: will be added when migratin to Postgres + PostGIS
     # points = models.MultiPointfield()
     # polygons = models.MultiPolygonField()
-
-    species = models.ForeignKey(Species, blank=True, null=True,
-                                on_delete=models.CASCADE)
-    genus = models.ForeignKey(Genus, blank=True, null=True,
-                              on_delete=models.CASCADE)
-    family = models.ForeignKey(Family, blank=True, null=True,
-                               on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 
 class Page(models.Model):

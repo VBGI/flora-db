@@ -2,16 +2,17 @@ from django.test import TestCase, Client
 
 from .models import Genus, Species, Family, Page, Link, TitleImage
 
-# Create your tests here.
 
 def generate_fake_data(cls):
-    family = Family.objects.create(family="Awesome", info="awesome_family", id=1)
+    family = Family.objects.create(name="Awesome", info="AwesomeFamily", id=1)
     genus = Genus.objects.create(family=family, info="awesome_genus",
-                                 genus="noname_genus", id=1)
-    species = Species.objects.create(genus=genus, info="awesome_species")
-    Link.objects.create(family=family, url="http://example.com/family", id=1)
-    Link.objects.create(genus=genus, url="http://example.com/genus", id=2)
-    Link.objects.create(species=species, url="http://example.com/species", id=3)
+                                 name="nonamegenus", id=1)
+    species = Species.objects.create(genus=genus, info="awesome_species", name="SP1")
+
+    Link.objects.create(content_object=family, url="http://example.com/family", id=1)
+    Link.objects.create(content_object=genus, url="http://example.com/genus", id=2)
+    Link.objects.create(content_object=species, url="http://example.com/species", id=3)
+
     cls.family = family
     cls.genus = genus
     cls.species = species
@@ -20,7 +21,7 @@ def generate_fake_data(cls):
     cls.titleImage = TitleImage.objects.create(caption='unique title image')
 
 
-class GeneraTest(TestCase):
+class GeneralEntityTest(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -28,59 +29,64 @@ class GeneraTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         generate_fake_data(cls)
-        
+
+
+class GeneraTest(GeneralEntityTest):
+    
+    def setUp(self):
+        super().setUp()
+        self.response = self.client.get('/genus/1', follow=True)
 
     def test_genus_page_200(self):
-        response =self.client.get('/genus/1')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
     
     def test_genus_page_content(self):
-        response =self.client.get('/genus/1')
-        self.assertInHTML(b'awesome_genus', response.content)
-        self.assertInHTML(b'noname_genus', response.content)
+        self.assertIn(b'awesome_genus', self.response.content)
+        self.assertIn(b'Nonamegenus', self.response.content)
         
     def test_related_link_inclusion(self):
-        response = self.client.get('/genus/1')
-        self.assertInHTML(b'http://example.com/genus', response.content)
+        self.assertIn(b'http://example.com/genus', self.response.content)
 
 
-
-class LinkTest(TestCase):
+class FamilyTest(GeneralEntityTest):
 
     def setUp(self):
-        self.client = Client()
-
-    @classmethod
-    def setUpTestData(cls):
-        generate_fake_data(cls)
-        
-
-    def test_link_page_200(self):
-        response =self.client.get('/link/1')
-        self.assertEqual(response.status_code, 200)
-  
-
-class FamilyTest(TestCase):
-
-    def setUp(self):
-        self.client = Client()
-
-    @classmethod
-    def setUpTestData(cls):
-        generate_fake_data(cls)
-        
+        super().setUp()
+        self.response = self.client.get('/family/1', follow=True)
 
     def test_family_page_200(self):
-        response =self.client.get('/family/1')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
     
     def test_family_page_content(self):
-        response =self.client.get('/family/1')
-        self.assertInHTML(b'Awesome', response.content)
-        self.assertInHTML(b'awesome_family', response.content)
+        self.assertIn(b'Awesome', self.response.content)
+        self.assertIn(b'AwesomeFamily', self.response.content)
         
     def test_related_link_inclusion(self):
-        response = self.client.get('/family/1')
-        self.assertInHTML(b'http://example.com/family', response.content)
+        self.assertIn(b'http://example.com/family', self.response.content)
     
 
+class SpeciesTest(GeneralEntityTest):
+
+    def setUp(self):
+        super().setUp()
+        self.response = self.client.get('/species/1', follow=True)    
+    
+    def test_species_page_200(self):
+        self.assertEqual(self.response.status_code, 200)
+    
+    def test_species_page_content(self):
+        self.assertIn(b'SP1', self.response.content)
+    
+    def test_related_link_inclusion(self):
+        self.assertIn(b'http://example.com/species', self.response.content)
+
+    def test_genus_name_exists(self):
+        self.assertIn(b'Nonamegenus', self.response.content)
+    
+class TestPageView(GeneralEntityTest):
+    def setUp(self):
+        super().setUp()
+        self.response  = self.client.get('/')
+
+    def test_image_included(self):
+        self.assertIn(b'unique title image', self.response.content)

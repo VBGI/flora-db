@@ -36,12 +36,14 @@
                   </form>
                 </div>
               </nav>
+          
 
+          {% if title_images %}
           <div id="titleCarousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                   {% for img in title_images %}
                       <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                          <img src="{{ img.image.url }}" class="d-block w-100" alt="{{ img.caption|striptags }}">
+                          <img src="{{ img.image }}" class="d-block w-100" alt="{{ img.caption|striptags }}">
                           {% if img.caption %}
                               <div class="carousel-caption">
                                   {{ img.caption|safe }}
@@ -59,6 +61,7 @@
                 <span class="sr-only">Next</span>
               </a>
             </div>
+            {% endif %}
 
   <div class="row">
           <div class="col-sm-12">

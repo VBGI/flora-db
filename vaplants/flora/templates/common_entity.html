@@ -4,23 +4,24 @@
 <h1>{{ object }}</h1>
 
 {% if object.genus.family %}
-    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.genus.family.id %}">{{ object.genus.family }}</a></p>
+    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.genus.family.pk %}">{{ object.genus.family }}</a></p>
 {% endif %}
 
 {% if object.genus %}
-    <p><strong>Genus:</strong>  <a href="{% url 'genus-detail' object.genus.id %}"> {{ object.genus }} </a></p>
+    <p><strong>Genus:</strong>  <a href="{% url 'genus-detail' object.genus.pk %}"> {{ object.genus }} </a></p>
 {% endif %}
 
 {{ object.info }}
 
-{% if object.occurrence_set %}
+{% if object.occurrences %}
     <h3>Occurrences: </h3>
-    {{ object.occurrence_set.first }}
+    {{ object.occurrences.first }}
 {% endif %}
 
-{% if object.link_set %}
+{% if object.links %}
+    <h3>Links: </h3>
     <ul>
-    {% for link in object.link_set.all %}
+    {% for link in object.links.all %}
         <li>
             <a href="{{ link.url }}">{{ link.title }}</a>
         </li>
@@ -30,14 +31,15 @@
 
 {% if object.genus_set %}
 <hr>
-<h3>Related genera</h3>
+<h3>Related genera: </h3>
 <ul>
     {% for obj in object.genus_set.all %}
     <li>
-       <a href="{% url 'genus-detail' obj.id %}">{{ obj.genus }}</a>
+       <a href="{% url 'genus-detail' obj.pk %}">{{ obj.genus }}</a>
     </li>
     {% endfor %}
 </ul>
+
 {% endif %}
 
 

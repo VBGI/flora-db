@@ -28,10 +28,6 @@ class SpeciesDetailView(CommonDetailView):
     model = Species
 
 
-class LinkDetailView(CommonDetailView):
-    model = Link
-
-
 class PageView(TitleMixinView, DetailView):
     template_name = "page.html"
     model = Page
@@ -58,8 +54,8 @@ class SpeciesListView(CommonListView):
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(epithet__icontains=self.kwargs.get('q', ''),
-                               genus__genus__istartswith=self.kwargs.get('fl', ''))
+        return queryset.filter(name__icontains=self.kwargs.get('q', ''),
+                               genus__name__istartswith=self.kwargs.get('fl', ''))
 
 
 class FamilyListView(CommonListView):
@@ -73,8 +69,8 @@ class FamilyListView(CommonListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(family__icontains=self.kwargs.get('q', ''),
-                               family__istartswith=self.kwargs.get('fl', ''))
+        return queryset.filter(name__icontains=self.kwargs.get('q', ''),
+                               name__istartswith=self.kwargs.get('fl', ''))
 
 class GenusListView(CommonListView):
     model = Genus
@@ -87,8 +83,8 @@ class GenusListView(CommonListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(genus__icontains=self.kwargs.get('q', ''),
-                               genus__istartswith=self.kwargs.get('fl', ''))
+        return queryset.filter(name__icontains=self.kwargs.get('q', ''),
+                               name__istartswith=self.kwargs.get('fl', ''))
 
 
 class SearchView(TitleMixinView, TemplateView):
@@ -98,14 +94,14 @@ class SearchView(TitleMixinView, TemplateView):
         context = super().get_context_data(**kwargs)
         q = self.request.GET.get('q', '')
         context['families'] = Family.objects.filter(Q(info__icontains=q)|
-                                                    Q(family__icontains=q))
+                                                    Q(name__icontains=q))
         context['genera'] = Genus.objects.filter(Q(info__icontains=q)|
-                                                 Q(genus__icontains=q))
+                                                 Q(name__icontains=q))
         context['species'] = Species.objects.filter(Q(info__icontains=q)|
-                                                    Q(genus__genus__icontains=q)|
-                                                    Q(epithet__icontains=q)|
-                                                    Q(occurrence__name__icontains=q)|
-                                                    Q(occurrence__description__icontains=q)
+                                                    Q(genus__name__icontains=q)|
+                                                    Q(name__icontains=q)|
+                                                    Q(occurrences__name__icontains=q)|
+                                                    Q(occurrences__info__icontains=q)
                                                     )
 
         return context
