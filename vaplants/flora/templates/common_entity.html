@@ -1,45 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if object %}
-<h1>{{ object }}</h1>
+
+{% if object.full_name_as_html %}
+    <h1>{{ object.full_name_as_html }}</h1>
+{% else %}
+    <h1>{{ object }}</h1>
+{% endif %}
 
 {% if object.genus.family %}
     <p><strong>Family:</strong> <a href="{% url 'family-detail' object.genus.family.pk %}">{{ object.genus.family }}</a></p>
+{% elif object.family %}
+    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.family.pk %}">{{ object.family }}</a></p>
 {% endif %}
 
 {% if object.genus %}
-    <p><strong>Genus:</strong>  <a href="{% url 'genus-detail' object.genus.pk %}"> {{ object.genus }} </a></p>
+    <p><strong>Genus:</strong>  <a href="{% url 'genus-detail' object.genus.pk %}"> <em>{{ object.genus }}</em> </a></p>
 {% endif %}
 
 {{ object.info }}
 
 {% if object.occurrences.all %}
+    <hr>
     <h3>Occurrences: </h3>
     {{ object.occurrences.first }}
 {% endif %}
 
 {% if object.links.all %}
+    <hr>
     <h3>Links: </h3>
-    <ul>
-    {% for link in object.links.all %}
-        <li>
-            <a href="{{ link.url }}">{{ link.title }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="common-object-list">
+        <ol>
+            {% for link in object.links.all %}
+            <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div
 {% endif %}
 
 {% if object.genus_set %}
 <hr>
 <h3>Related genera: </h3>
-<ul>
-    {% for obj in object.genus_set.all %}
-    <li>
-       <a href="{% url 'genus-detail' obj.pk %}">{{ obj.genus }}</a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="common-object-list">
+    <ol>
+        {% for obj in object.genus_set.all %}
+        <li>
+            <a href="{% url 'genus-detail' obj.pk %}"><em>{{ obj }}</em></a>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+{% endif %}
 
+{% if object.species_set %}
+<hr>
+<h3>Related species: </h3>
+<div class="common-object-list">
+    <ol>
+        {% for obj in object.species_set.all %}
+        <li>
+        <a href="{% url 'species-detail' obj.pk %}"><em>{{ obj }}</em></a>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
 {% endif %}
 
 

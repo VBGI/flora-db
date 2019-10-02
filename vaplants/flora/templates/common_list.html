@@ -4,8 +4,9 @@
 
 {% if object_list%}
 
+    <h2>List of {{ data_name }}: </h2>
+    {% if object_list.has_next %}
     <div class="pagination">
-        <h2>List of {{ data_name }}: </h2>
         <span class="step-links">
             {% if object_list.has_previous %}
                 <a href="?page=1">&laquo; first</a>
@@ -22,14 +23,15 @@
             {% endif %}
         </span>
     </div>
+    {% endif %}
     <div class="common-object-list">
-        <ul>
+        <ol>
             {% for obj in object_list %}
                 <li>
                     <a href="{% url model_url_name obj.pk %}"> {{ obj }} </a>
                 </li>
             {% endfor %}
-        </ul>
+        </ol>
     </div>
 {% else %}
     <h1> No objects to display. </h1>
