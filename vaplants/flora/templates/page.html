@@ -1,4 +1,5 @@
 {% extends  'base.html' %}
+{% load flora_tags %}
 
 {% if object and object.public %}
     {% block title %}
@@ -8,7 +9,7 @@
 
 {% block content %}
     {% if object.public %}
-        {{ object.text|safe }}  
+        {{ object.text|render_md|safe }}
     {% else %}
         <h2>Content of the page isn't published yet. </h2>
     {% endif %}
