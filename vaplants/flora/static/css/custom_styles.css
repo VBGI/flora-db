@@ -21,11 +21,15 @@ background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
     min-height: 40px
 }
 
-
+/* */
 .content-style{
-    padding-top: 5px;
     background-color: #ecf5ed;
+    padding: 5px;
+    padding-bottom: 30px;
     min-height: 100px;
+    border-left: solid 1px #aec5aa;
+    border-right: solid 1px #aec5aa;
+
 }
 
 .footer-left{
@@ -36,7 +40,7 @@ background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
 
 .footer-right{
     position: relative;
-    right: px; 
+    right: 5px; 
     float: right;
 }
 
@@ -53,3 +57,17 @@ background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
     list-style: none;
     padding-top: 5px; 
   }
+
+  .pagination{
+      margin: auto 0;
+      position: relative;
+      display: block;
+  }
+
+.footer-left ul {
+list-style: none;
+}
+.footer-left ul li {
+    float: left;
+    padding-left: 5px;
+}
