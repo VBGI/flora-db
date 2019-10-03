@@ -136,8 +136,9 @@ class Link(UpdaterMixin, ForeignRelationMixin):
 
 class Occurrence(UpdaterMixin, ForeignRelationMixin, InfoMixin):
     name = models.CharField(max_length=300, default='')
+    abbr = models.CharField(max_length=10, default='', blank=True)
 
-    # TODO: will be added when migratin to Postgres + PostGIS
+    # TODO: Postgres + PostGIS
     # points = models.MultiPointfield()
     # polygons = models.MultiPolygonField()
 
