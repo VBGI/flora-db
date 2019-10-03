@@ -1,0 +1,167 @@
+"name,C,50","Area,N,19,11","ID,C,8","spp_num,N,9,0"
+Chukotskii (Wrangel),"8924,79527584",FE_CH,870
+Chukotskii,"476855,095806",FE_CH,870
+Koriakskii,"106738,688428",FE_KR,715
+Anadyrsko-Penzhinskii,"104132,021566",FE_AP,694
+Komandorskii,"18660,5557224",FE_KO,377
+Kamchatskii,"263277,045649",FE_KA,1125
+Severo-Kurilskii,"58934,6100755",FE_NK,570
+Yuzhno-Kurilskii,"71164,9353251",FE_SK,1137
+Aniuiskii,"310037,998998",FE_AN,609
+Okhotskii,"309494,840384",FE_OK,1185
+Kolymskii,"213005,491199",FE_KL,750
+Severo-Sakhalinskii,"37875,7830107",FE_NS,940
+Yuzhno-Sakhalinskii,"34933,7463192",FE_SS,1225
+Amginskii,"214022,941998",FE_AM,1134
+Ussuriiskii,"269878,738575",FE_US,2520
+Bureinskii,"139386,276389",FE_BU,1381
+Verkhne-Zeiskii,"71513,3095282",FE_UZ,919
+Nizhne-Zeiskii,"207133,664762",FE_LZ,1356
+Niukzhinskii,"43883,2819879",FE_NJ,360
+Daurskii,"24475,73349",FE_DA,788
+Yakutskii Arcticheskii,"479222,583924",SI_Y_AR,677
+Yakutskii Kolymskii,"149438,922525",SI_Y_KO,545
+Yakutskii Aldanskii,"211285,374215",SI_Y_AL,1026
+Yakutskii Yano-Indigirskii,"752444,531004",SI_Y_YA,740
+Yakutskii Oleneksko-Nizhnelenskii,"456394,216805",SI_Y_OL,488
+Yakutskii Viliuisko-Verkhnelenskii,"882377,898337",SI_Y_VI,1104
+Krasnoyarskii Putoranskii,"551685,537984",SI_K_PU,817
+Krasnoyarskii Taimyrskii,"830329,867571",SI_K_TA,525
+Tiumenskii Yamalo-Nenetskii,"745925,617824",SI_T_YN,612
+Tiumenskii Hanty-Mansiiskii,"534112,508338",SI_T_HM,605
+Tiumenskii Tobolskii,"153534,007545",SI_T_TB,1039
+Kurganskii,"69820,2789878",SI_KU,982
+Omskii,"131331,044014",SI_OM,1007
+Tomskii,"304316,358328",SI_TO,986
+Novosibirskii,"165349,017186",SI_NO,1165
+Altaiskii Barnaulskii,"158641,811518",SI_A_BA,1586
+Kemerovskii,"90399,934802",SI_KE,1165
+Altaiskii Gornoaltaiskii,"86306,5537764",SI_A_GO,1963
+Krasnoyarskii Hakasskii,"56622,9182288",SI_K_HA,1525
+Tuvinskii,"153788,119338",SI_TU,1867
+Krasnoyarskii Tungusskii,"660785,136035",SI_K_TN,736
+Krasnoyarskii Verkhneyenisseiskii,"498030,89494",SI_K_VE,1780
+Irkutskii Angaro-Sayanskii,"334915,846908",SI_I_AS,1737
+Irkutskii Prilensko-Katangskii,"404601,759866",SI_I_LK,1211
+Buriatskii Severobaikalskii,"154262,157446",SI_B_NO,1507
+Chitinskii Kalarskii,"126976,110735",SI_C_KA,826
+Buriatskii Yuzhnobaikalskii,"177023,410241",SI_B_SO,1832
+Chitinskii Shilko-Argunskii,"277604,155531",SI_C_SH,1537
+Prihubsugulskii,"51320,3426519",M_1,937
+Khenteiskii,"38358,6142592",M_2,1091
+Mongolsko-Daurskii,"96143,4033362",M_4,1141
+Vostochno-Mongolskii,"117937,971485",M_9,890
+Prihinganskii,"7597,50105346",M_5,773
+Hobdosskii,"29965,2645328",M_6,897
+Kotlovina Bolshih Ozer,"74640,6593971",M_10,798
+Hangaiskii,"279822,875822",M_3,1477
+Dolina Ozer,"48892,3599446",M_11,434
+Mongolsko-Altaiskii,"128580,69074",M_7,1356
+Dzhungarskaia Gobi,"23254,1347267",M_14,751
+Zaaltaiskaia Gobi,"88606,4743831",M_15,353
+Gobi-Altaiskii,"73693,3003216",M_13,787
+Alashanskaya Gobi,"29582,3501036",M_16,239
+Sredniaia Halha,"159410,74763",M_8,690
+Vostochnaya Gobi,"204726,670749",M_12,403
+Heilongjiang,"420834,151266",CH_HE,1158
+Jilin,"178039,836679",CH_JI,1860
+Liaoning,"135581,072512",CH_LI,1588
+Eastern Inner Mongolia,"443247,320351",CH_IM,1465
+Semipalatinskii borovoi,"12726,7811716",KZ_4,510
+Altai,"66811,7201268",KZ_22,1045
+Zaisanskii,"35844,4958863",KZ_12,620
+Tatbagatai,"28441,5335917",KZ_23,806
+Tobolsko-Ishimskii,"176489,639783",KZ_2,689
+Irtyshskii,"121652,256632",KZ_3,629
+Kokchetavskii,"37850,767863",KZ_5,511
+Zapadnii Melkosopochnik,"218462,731573",KZ_10,658
+Vostochnii Melkosopochnik,"181079,173583",KZ_11,666
+Turgaiskii,"173882,805893",KZ_9,621
+Aktiubinskii,"140274,841225",KZ_7,612
+Embenskii,"71588,7920872",KZ_8,401
+Priaralskii,"87644,5625932",KZ_14,0
+Kyzyl-Kumskii,"63632,7973604",KZ_20,0
+Kyzyl-Ordynskii,"84849,0013259",KZ_15,0
+Turkestanskii,"39973,5959891",KZ_21,0
+Zapadnii Tian-Shan,"17757,6281941",KZ_29,0
+Karatau,"28364,4580842",KZ_28,0
+Kyrgyzskii Alatau,"5661,64168387",KZ_27,0
+Muiun-Kumskii,"80554,4152749",KZ_17,0
+Zailiiskii Alatau,"31780,361735",KZ_25,0
+Chu-Iliiskie Gory,"7702,93912673",KZ_26,0
+Betpakdolinskii,"203585,931135",KZ_16,0
+Balkhash-Alakulskii,"159818,14484",KZ_18,0
+Dzhungarskii Alatau,"39814,6916106",KZ_24,0
+Bolshoi Syrt,"9024,96835465",KZ_1,0
+Prikaspiiskii,"216406,675007",KZ_6,0
+Severnii Ust-Urt,"124446,360781",KZ_13,0
+Yuzhnii Ust-Urt,"24995,5044431",KZ_19,0
+Cherkesskii,"3047,62465688",CA_14,0
+Abkhazskii,"8576,27397172",CA_15,0
+Zapadno-Predkavkazskii,"79480,2924776",CA_1,0
+Vostochno-Predkavkazskii,"113298,876835",CA_2,0
+Kubanskii,"30832,20856",CA_7,0
+Dagestanskii,"12455,6060905",CA_9,0
+Prikaspiiskii Kavkaz,"21090,6496821",CA_10,0
+Terskii,"45525,6265612",CA_8,0
+Kutaisskii,"17641,7463421",CA_16,0
+Adzharistanskii,"8544,03243157",CA_17,0
+Kartalinskii,"8792,66663916",CA_12,0
+Iberiiskii,"16200,3245921",CA_13,0
+Kabristanskii,"4058,71417618",CA_11,0
+Apsheronskii,"1332,59088424",CA_4,0
+Karabakhskii,"19001,6137796",CA_19,0
+Shekinskii,"12152,1008759",CA_3,0
+Vostochno-Zakavkazskii,"27891,2426499",CA_3,0
+Dzhavakhetskii,"4533,89035971",CA_21,0
+Diabarskii,"1122,37278473",CA_24,0
+Talyshinskii,"3555,31178535",CA_25,0
+ Armianskii,"16787,8378897",CA_22,0
+Nakhichevanskii,"5967,98348031",CA_23,0
+Somkhetskii,"13743,1523613",CA_18,0
+Pyonganbuk-do,"26442,9978222",KR_PB,0
+Hamgyongnam-do,"29664,6403287",KR_HN,0
+Hamgyongbuk-do,"15374,1316349",KR_HB,0
+Pyongannam-do,"14658,2145701",KR_PN,0
+Hwanghae-do,"17345,9975412",KR_HH,0
+Kangwon-do,"27548,8175462",KR_KW,0
+Kyonggi-do,"10794,5649182",KR_KG,0
+Chungchongnam-do,"9001,47738565",KR_CN,0
+Chungchongbuk-do,"6894,61441648",KR_CB,0
+Kyongsangbuk-do,"19205,1702351",KR_KB,0
+Chollabuk-do,"8029,03455058",KR_CLB,0
+Kyongsangnam-do,"12046,503828",KR_KN,0
+Chollanam-do,"16061,6606587",KR_CLN,0
+Jeju-do,"1805,11523061",KR_JJ,0
+Ullung-do,"585,798662637",KR_UL,0
+Hokkaido,"73138,3212657",JP_HK,0
+Honshu,"221859,650709",JP_HN,0
+Shikoku,"17804,1350706",JP_SK,0
+Kiushu,"39299,2005715",JP_KS,0
+Aral sea,"38546,7278315",WATER,0
+Karakalpakstan,"151404,453312",UZ_KR,0
+Horezmskaya,"6414,33916849",UZ_HZ,0
+Navoiiskaia,"104678,858338",UZ_NA,0
+Buharskaia,"36722,6829625",UZ_BH,0
+Dzhizakskaia,"20055,8658842",UZ_DZ,0
+Samarkand,"15559,8682078",UZ_SM,0
+Kashdariinskaya,"27200,4364448",UZ_KD,0
+ Surhandariinskaia,"18748,7768449",UZ_SD,0
+Syrdariinskaia,"3922,15414239",UZ_SY,0
+Tashkentskaia,"14202,4053772",UZ_TS,0
+Namanganskaia,"7047,28672663",UZ_NM,0
+Ferganskaia,"6255,52364811",UZ_FG,0
+Andizhanskaia,"3987,89684695",UZ_AN,0
+Turkmenistan,"461446,664568",TURKM,0
+Kyrgyzstan,"184407,86285",KYR,0
+Vostochno Pamirskiii,"37655,717882",TJ_EP,0
+Kuraminskii,"2343,42473207",TJ_KU,0
+Mogoltavskii,"369,582087762",TJ_MG,0
+Turkestanskii,"4072,34293426",TJ_TK,0
+Prisyrdariinskii,"5218,3510823",TJ_SD,0
+Zeravshanskii,"12771,1579056",TJ_ZS,0
+Yuzhno-Tadzhikistanskii,"26294,5735136",TJ_ST,0
+Gissaro-Darvazskii,"16479,3209317",TJ_GD,0
+Vostochno-Tadzhikistanskii,"13988,7197202",TJ_ET,0
+Zapadno-Pamirskii,"15469,9788249",TJ_WP,0
+Yakutskii Aldanskii,"579334,927694",SI_Y_AL,0
