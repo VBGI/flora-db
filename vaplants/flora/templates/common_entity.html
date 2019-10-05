@@ -23,7 +23,16 @@
 {% if object.occurrences.all %}
     <hr>
     <h3>Occurrences: </h3>
-    {{ object.occurrences.first }}
+
+    <div class="common-object-list">
+        <ol>
+            {% for ocr in object.occurrences.all %}
+            <li>
+                <a href="{{ ocr.url }}">{{ ocr.name }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endif %}
 
 {% if object.links.all %}
