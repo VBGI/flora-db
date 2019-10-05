@@ -118,8 +118,8 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
 
 class SpeciesSynonim(models.Model):
     SYN_CHOICES = (
-                   ('N', 'Normal'),
-                   ('A', 'Advanced')
+                   ('K', 'Kharkevich'),
+                   ('Q', 'QIAN')
                    )
     from_species = models.ForeignKey(Species, related_name='related_from',
                                      on_delete=models.CASCADE)
