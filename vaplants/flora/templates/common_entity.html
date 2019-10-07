@@ -9,13 +9,13 @@
 {% endif %}
 
 {% if object.genus.family %}
-    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.genus.family.pk %}">{{ object.genus.family }}</a></p>
+    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.genus.family.name %}">{{ object.genus.family }}</a></p>
 {% elif object.family %}
-    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.family.pk %}">{{ object.family }}</a></p>
+    <p><strong>Family:</strong> <a href="{% url 'family-detail' object.family.name %}">{{ object.family }}</a></p>
 {% endif %}
 
 {% if object.genus %}
-    <p><strong>Genus:</strong>  <a href="{% url 'genus-detail' object.genus.pk %}"> <em>{{ object.genus }}</em> </a></p>
+    <p><strong>Genus:</strong>  <a href="{% url 'genus-detail' object.genus.name %}"> <em>{{ object.genus }}</em> </a></p>
 {% endif %}
 
 {{ object.info }}
@@ -56,7 +56,7 @@
     <ol>
         {% for obj in object.genus_set.all %}
         <li>
-            <a href="{% url 'genus-detail' obj.pk %}"><em>{{ obj }}</em></a>
+            <a href="{% url 'genus-detail' obj.name %}"><em>{{ obj }}</em></a>
         </li>
         {% endfor %}
     </ol>
