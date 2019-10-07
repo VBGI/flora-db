@@ -116,11 +116,11 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
 
     @property
     def full_name(self):
-        return f'{self.genus} {self.name}'
+        return '{} {}'.format(self.genus, self.name)
 
     @property
     def full_name_as_html(self):
-        return mark_safe(f'<em>{self.genus} {self.name}</em> {self.authorship}')
+        return mark_safe('<em>{} {}</em> {}'.format(self.genus, self.name, self.authorship))
 
 class SpeciesSynonim(models.Model):
     SYN_CHOICES = (
