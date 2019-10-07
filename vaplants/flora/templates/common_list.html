@@ -3,8 +3,7 @@
 {% block content %}
 
 {% if object_list%}
-
-    <h2>List of {{ data_name }}: </h2>
+    <h2>List of {{ data_name }}:</h2>
     {% if page_obj.has_next or page_obj.has_previous %}
     <div class="pagination">
         <span class="step-links">
@@ -28,7 +27,7 @@
         <ol>
             {% for obj in object_list %}
                 <li>
-                    <a href="{% url model_url_name obj.pk %}"> {{ obj }} </a>
+                    <a href="{% url model_url_name obj.pk %}"> {{ obj.full_name_as_html }} </a>
                 </li>
             {% endfor %}
         </ol>
