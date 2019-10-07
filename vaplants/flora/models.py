@@ -74,7 +74,7 @@ class Family(UpdaterMixin, InfoMixin, RarityMixin):
         verbose_name = 'Family'
 
     def get_absolute_url(self):
-        return reverse('family-detail', args=[str(self.id)])
+        return reverse('family-detail', args=[self.name])
 
 
 class Genus(UpdaterMixin, InfoMixin, RarityMixin):
@@ -87,7 +87,7 @@ class Genus(UpdaterMixin, InfoMixin, RarityMixin):
         verbose_name = 'Genus'
 
     def get_absolute_url(self):
-        return reverse('genus-detail', args=[str(self.id)])
+        return reverse('genus-detail', args=[self.name])
 
 
 class Species(UpdaterMixin, InfoMixin, RarityMixin):
