@@ -2,25 +2,30 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Genus, Family, Species
 
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'username', 'email']
 
+
 class GenusSerializer(serializers.HyperlinkedModelSerializer):
+    family_name = serializers.CharField(source='family.name')
+
     class Meta:
         model = Genus
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['name', 'info', 'family_name']
 
 
 class SpeciesSerializer(serializers.HyperlinkedModelSerializer):
+    genus_name = serializers.CharField(source='genus.name')
+    family_name = serializers.CharField(source='genus.family.name')
+
     class Meta:
         model = Species
-        fields = ['url', 'name']
+        fields = ['name']
 
-class FamilySerializer(serializers.):
+class FamilySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Family
-        fields = []
+        fields = ['name', 'info']
 
