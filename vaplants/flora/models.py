@@ -44,6 +44,11 @@ class InfoMixin(models.Model):
 
     def clean(self):
         self.name = self.name.strip().lower()
+    
+    @property
+    def full_name_as_html(self):
+        return self.__str__()
+
 
 
 class ForeignRelationMixin(models.Model):
@@ -113,6 +118,7 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
     def full_name(self):
         return f'{self.genus} {self.name}'
 
+    @property
     def full_name_as_html(self):
         return mark_safe(f'<em>{self.genus} {self.name}</em> {self.authorship}')
 
@@ -137,6 +143,12 @@ class Link(UpdaterMixin, ForeignRelationMixin):
 class Occurrence(UpdaterMixin, ForeignRelationMixin, InfoMixin):
     name = models.CharField(max_length=300, default='')
     abbr = models.CharField(max_length=10, default='', blank=True)
+
+    def __str__(self):
+        return self.name.title()
+    
+    def get_absolute_url(self):
+        return reverse('occurrence-detail', args=[str(self.pk)])
 
     # TODO: Postgres + PostGIS
     # points = models.MultiPointfield()
