@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView, View
 from django.db.models import Q
-from .models import Family, Genus, Species, Page, Link, TitleImage
+from .models import Family, Genus, Species, Page, Link, TitleImage, Occurrence
 
 
 class TitleMixinView:
@@ -23,6 +23,9 @@ class FamilyDetailView(CommonDetailView):
 
 class GenusDetailView(CommonDetailView):
     model = Genus
+
+class OccurrenceDetailView(CommonDetailView):
+    model = Occurrence
 
 
 class SpeciesDetailView(CommonDetailView):
@@ -104,5 +107,5 @@ class SearchView(TitleMixinView, TemplateView):
                                                     Q(occurrences__name__icontains=q)|
                                                     Q(occurrences__info__icontains=q)
                                                     )
-
         return context
+
