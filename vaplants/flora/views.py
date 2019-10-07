@@ -19,10 +19,15 @@ class CommonDetailView(TitleMixinView, DetailView):
 
 class FamilyDetailView(CommonDetailView):
     model = Family
+    slug_field = 'name'
+    slug_url_kwarg = 'name'
 
 
 class GenusDetailView(CommonDetailView):
     model = Genus
+    slug_field = 'name'
+    slug_url_kwarg = 'name'
+
 
 class OccurrenceDetailView(CommonDetailView):
     model = Occurrence
@@ -91,21 +96,22 @@ class GenusListView(CommonListView):
                                name__istartswith=self.kwargs.get('fl', ''))
 
 
+
 class SearchView(TitleMixinView, TemplateView):
     template_name = "search.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        q = self.request.GET.get('q', '')
-        context['families'] = Family.objects.filter(Q(info__icontains=q)|
-                                                    Q(name__icontains=q))
-        context['genera'] = Genus.objects.filter(Q(info__icontains=q)|
-                                                 Q(name__icontains=q))
-        context['species'] = Species.objects.filter(Q(info__icontains=q)|
-                                                    Q(genus__name__icontains=q)|
-                                                    Q(name__icontains=q)|
-                                                    Q(occurrences__name__icontains=q)|
-                                                    Q(occurrences__info__icontains=q)
-                                                    )
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     q = self.request.GET.get('q', '')
+    #     context['families'] = Family.objects.filter(Q(info__icontains=q)|
+    #                                                 Q(name__icontains=q))
+    #     context['genera'] = Genus.objects.filter(Q(info__icontains=q)|
+    #                                              Q(name__icontains=q))
+    #     context['species'] = Species.objects.filter(Q(info__icontains=q)|
+    #                                                 Q(genus__name__icontains=q)|
+    #                                                 Q(name__icontains=q)|
+    #                                                 Q(occurrences__name__icontains=q)|
+    #                                                 Q(occurrences__info__icontains=q)
+    #                                                 )
+    #     return context
 
