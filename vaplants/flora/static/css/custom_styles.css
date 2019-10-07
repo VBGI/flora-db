@@ -46,9 +46,9 @@ background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
 
 
 .common-object-list {
-    -webkit-columns: 25% 4;
-    -moz-columns: 25% 4;
-    columns: 25% 4;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    columns: 3;
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -62,6 +62,7 @@ background-image: url("IMAGE_URL"), linear-gradient(#eb01a5, #d13531); /* W3C */
       margin: auto 0;
       position: relative;
       display: block;
+      text-align: center;
   }
 
 .footer-left ul {
@@ -70,4 +71,10 @@ list-style: none;
 .footer-left ul li {
     float: left;
     padding-left: 5px;
+}
+
+div.pagination{
+    margin: 0 auto;
+    width: 50%;
+    font-size: 1.5em;
 }
