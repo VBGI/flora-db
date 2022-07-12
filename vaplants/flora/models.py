@@ -90,6 +90,16 @@ class Genus(UpdaterMixin, InfoMixin, RarityMixin):
         return reverse('genus-detail', args=[self.name])
 
 
+class Location(UpdaterMixin, InfoMixin):
+
+    class Meta(InfoMixin.Meta):
+        verbose_name_plural = 'Locations'
+        verbose_name = 'Location'
+
+    def get_absolute_url(self):
+        return reverse('location-detail', args=[self.name])
+
+
 class Species(UpdaterMixin, InfoMixin, RarityMixin):
     authorship = models.CharField(max_length=50, default='', blank=True)
     genus = models.ForeignKey(Genus, blank=False, on_delete=models.CASCADE)

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView, View
 from django.db.models import Q
-from .models import Family, Genus, Species, Page, Link, TitleImage, Occurrence
+from .models import Family, Genus, Species, Page, Link, TitleImage, Occurrence, Location
 
 
 class TitleMixinView:
@@ -29,6 +29,12 @@ class GenusDetailView(CommonDetailView):
     slug_url_kwarg = 'name'
 
 
+class LocationDetailView(CommonDetailView):
+    model = Location
+    slug_field = 'name'
+    slug_url_kwarg = 'name'
+
+
 class OccurrenceDetailView(CommonDetailView):
     model = Occurrence
 
@@ -52,6 +58,21 @@ class CommonListView(TitleMixinView, ListView):
     paginate_by = 100
 
 
+class LocationListView(CommonListView):
+    model = Location
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['data_name'] = 'Locations'
+        context['model_url_name'] = 'location-detail'
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(name__icontains=self.kwargs.get('q', ''),
+                               name__istartswith=self.kwargs.get('fl', ''))
+
+
 class SpeciesListView(CommonListView):
     model = Species
 
@@ -60,7 +81,7 @@ class SpeciesListView(CommonListView):
         context['data_name'] = 'Species'
         context['model_url_name'] = 'species-detail'
         return context
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(name__icontains=self.kwargs.get('q', ''),
@@ -100,18 +121,23 @@ class GenusListView(CommonListView):
 class SearchView(TitleMixinView, TemplateView):
     template_name = "search.html"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     q = self.request.GET.get('q', '')
-    #     context['families'] = Family.objects.filter(Q(info__icontains=q)|
-    #                                                 Q(name__icontains=q))
-    #     context['genera'] = Genus.objects.filter(Q(info__icontains=q)|
-    #                                              Q(name__icontains=q))
-    #     context['species'] = Species.objects.filter(Q(info__icontains=q)|
-    #                                                 Q(genus__name__icontains=q)|
-    #                                                 Q(name__icontains=q)|
-    #                                                 Q(occurrences__name__icontains=q)|
-    #                                                 Q(occurrences__info__icontains=q)
-    #                                                 )
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q = self.request.GET.get('q', '')
+        context['families'] = Family.objects.filter(Q(info__icontains=q)|
+                                                    Q(name__icontains=q))
+        context['genera'] = Genus.objects.filter(Q(info__icontains=q)|
+                                                 Q(name__icontains=q))
+        context['species'] = Species.objects.filter(Q(info__icontains=q)|
+                                                    Q(genus__name__icontains=q)|
+                                                    Q(name__icontains=q))
+        context['locations'] = Location.objects.filter(Q(info__icontains=q)|
+                                                    Q(name__icontains=q))
+        # context['species'] = Species.objects.filter(Q(info__icontains=q)|
+        #                                             Q(genus__name__icontains=q)|
+        #                                             Q(name__icontains=q)|
+        #                                             Q(occurrences__name__icontains=q)|
+        #                                             Q(occurrences__info__icontains=q)
+        #                                             )
+        return context
 
