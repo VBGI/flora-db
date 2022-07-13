@@ -91,6 +91,9 @@ class Genus(UpdaterMixin, InfoMixin, RarityMixin):
 
 
 class Location(UpdaterMixin, InfoMixin):
+    name = models.CharField(max_length=300, default='')
+    abbr = models.CharField(max_length=10, default='')
+    area = models.CharField(max_length=300, default='')
 
     class Meta(InfoMixin.Meta):
         verbose_name_plural = 'Locations'
@@ -153,10 +156,11 @@ class Link(UpdaterMixin, ForeignRelationMixin):
 class Occurrence(UpdaterMixin, ForeignRelationMixin, InfoMixin):
     name = models.CharField(max_length=300, default='')
     abbr = models.CharField(max_length=10, default='', blank=True)
+    location = models.ForeignKey(Location, blank=True, related_name='occurrences', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name.title()
-    
+
     def get_absolute_url(self):
         return reverse('occurrence-detail', args=[str(self.pk)])
 
