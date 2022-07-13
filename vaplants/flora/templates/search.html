@@ -2,51 +2,77 @@
 
 {% block  content %}
 {% if locations or species or genera or families %}
-    {% if locations %}
-        <h2>Locations: </h2>
-        <ul>
-        {% for location in locations %}
-            <li>
-                <a href="{% url  'location-detail' location.pk %}">{{ location }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
 
-    {% if species %}
-        <h2>Species: </h2>
-        <ul>
-        {% for sp in species %}
-            <li>
-                <a href="{% url  'species-detail' sp.pk %}">{{ sp }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
 
-    {% if genera %}
-        <hr>
-        <h2>Genera: </h2>
-        <ul>
-        {% for genus in genera %}
-            <li>
-                <a href="{% url  'genus-detail' genus.pk %}">{{ genus }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="tabs">
+        <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
+        <label for="tab-btn-1">Locations</label>
 
-    {% if families %}
-        <hr>
-        <h2>Families: </h2>
-        <ul>
-        {% for family in families %}
-            <li>
-                <a href="{% url  'family-detail' family.pk %}">{{ family }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+        <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+        <label for="tab-btn-2">Species</label>
+
+        <input type="radio" name="tab-btn" id="tab-btn-3" value="">
+        <label for="tab-btn-3">Genera</label>
+
+        <input type="radio" name="tab-btn" id="tab-btn-4" value="">
+        <label for="tab-btn-4">Families</label>
+
+        <div id="content-1">
+            {% if locations %}
+                <ul>
+                    {% for location in locations %}
+                        <li>
+                            <a href="{% url  'location-detail' location.pk %}">{{ location }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
+
+        
+        <div id="content-2">
+            {% if species %}
+                <ul>
+                    {% for sp in species %}
+                        <li>
+                            <a href="{% url  'species-detail' sp.pk %}">{{ sp }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}       
+        </div>
+        
+        
+        
+        <div id="content-3">
+            {% if genera %}
+                <ul>
+                    {% for genus in genera %}
+                        <li>
+                            <a href="{% url  'genus-detail' genus.pk %}">{{ genus }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        
+        
+        <div id="content-4">
+            {% if families %}
+                <ul>
+                    {% for family in families %}
+                        <li>
+                            <a href="{% url  'family-detail' family.pk %}">{{ family }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
+
+    </div>
 {% else %}
 <h1>
     No records found for the current search query.
