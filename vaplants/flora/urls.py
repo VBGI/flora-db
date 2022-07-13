@@ -1,14 +1,17 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import (FamilyDetailView, GenusDetailView, SpeciesDetailView, LocationDetailView,
                         FamilyListView, GenusListView, SpeciesListView, LocationListView,
                         PageView, OccurrenceDetailView, SearchView)
 
 urlpatterns = [
-    path('family/<slug:name>', FamilyDetailView.as_view(), name='family-detail'),
-    path('genus/<slug:name>', GenusDetailView.as_view(), name='genus-detail'),
+    # path('family/<slug:name>', FamilyDetailView.as_view(), name='family-detail'),
+    re_path(r'^family/(?P<name>[\w ?]+)', FamilyDetailView.as_view(), name='family-detail'),
+    # path('genus/<slug:name>', GenusDetailView.as_view(), name='genus-detail'),
+    re_path(r'^genus/(?P<name>[\w\ ?]+)', GenusDetailView.as_view(), name='genus-detail'),
     path('species/<int:pk>', SpeciesDetailView.as_view(), name='species-detail'),
     path('occurrence/<int:pk>', OccurrenceDetailView.as_view(), name='occurrence-detail'),
-    path('location/<slug:name>', LocationDetailView.as_view(), name='location-detail'),
+    # path('location/<slug:name>', LocationDetailView.as_view(), name='location-detail'),
+    re_path(r'^location/(?P<name>[\w\ ?]+)', LocationDetailView.as_view(), name='location-detail'),
     path('search', SearchView.as_view(), name='search-view'),
     path('families', FamilyListView.as_view(), name='family-list'),
     path('genera', GenusListView.as_view(), name='genus-list'),

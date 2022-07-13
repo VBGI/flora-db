@@ -107,6 +107,7 @@ class GenusListView(CommonListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['data_name'] = 'Genera'
         context['model_name'] = 'Genera'
         context['model_url_name'] = 'genus-detail'
         return context
