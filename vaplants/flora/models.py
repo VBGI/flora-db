@@ -63,7 +63,7 @@ class ForeignRelationMixin(models.Model):
 
     class Meta:
         abstract = True
-    
+
 
 class Family(UpdaterMixin, InfoMixin, RarityMixin):
     links = GenericRelation('Link', related_query_name='family')
@@ -117,6 +117,8 @@ class Species(UpdaterMixin, InfoMixin, RarityMixin):
 
     class Meta:
         ordering = ('genus__name', 'name')
+        verbose_name_plural = 'Species'
+        verbose_name = 'Species'
 
     def __str__(self):
         return self.full_name
@@ -156,7 +158,6 @@ class Link(UpdaterMixin, ForeignRelationMixin):
 class Occurrence(UpdaterMixin, ForeignRelationMixin, InfoMixin):
     name = models.CharField(max_length=300, default='')
     abbr = models.CharField(max_length=10, default='', blank=True)
-    location = models.ForeignKey(Location, blank=True, related_name='occurrences', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name.title()

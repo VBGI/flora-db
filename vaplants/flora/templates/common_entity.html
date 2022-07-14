@@ -8,6 +8,10 @@
     <h1>{{ object }}</h1>
 {% endif %}
 
+{% if object.authorship %}
+    <p><strong>Authorship:</strong>  <em>{{ object.authorship }}</em> </p>
+{% endif %}
+
 {% if object.genus.family %}
     <p><strong>Family:</strong> <a href="{% url 'family-detail' object.genus.family.name %}">{{ object.genus.family }}</a></p>
 {% elif object.family %}

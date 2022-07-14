@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if object %}
+
+{% if object.full_name_as_html %}
+    <h1>{{ object.full_name_as_html }}</h1>
+{% else %}
+    <h1>{{ object }}</h1>
+{% endif %}
+
+<p><strong>{{ object.content_type.name }}:</strong> <a href="{{ object.content_object.get_absolute_url }}">{{ object.content_object }}</a></p>
+
+{% if object.location %}
+    <p><strong>Location:</strong>  <a href="{% url 'location-detail' object.location.name %}"> <em>{{ object.location }}</em> </a></p>
+{% endif %}
+
+{{ object.info }}
+
+{% endif %}
+{% endblock content %}

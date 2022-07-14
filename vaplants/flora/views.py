@@ -30,12 +30,14 @@ class GenusDetailView(CommonDetailView):
 
 
 class LocationDetailView(CommonDetailView):
+    template_name = "location_entity.html"
     model = Location
     slug_field = 'name'
     slug_url_kwarg = 'name'
 
 
 class OccurrenceDetailView(CommonDetailView):
+    template_name = "occurrence_entity.html"
     model = Occurrence
 
 

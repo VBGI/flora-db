@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if object %}
+
+{% if object.full_name_as_html %}
+    <h1>{{ object.full_name_as_html }} ({{ object.abbr }})</h1>
+{% else %}
+    <h1>{{ object }}</h1>
+{% endif %}
+
+{{ object.info }}
+
+{% if object.occurrences.all %}
+    <hr>
+    <h3>Occurrences: </h3>
+
+    <div class="common-object-list">
+        <ol>
+            {% for ocr in object.occurrences.all %}
+            <li>
+                <a href="{{ ocr.get_absolute_url }}">{{ ocr.content_object }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endif %}
+
+{% endif %}
+{% endblock content %}
