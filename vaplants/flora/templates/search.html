@@ -22,7 +22,7 @@
                 <ul>
                     {% for location in locations %}
                         <li>
-                            <a href="{% url  'location-detail' location.pk %}">{{ location }}</a>
+                            <a href="{{ location.get_absolute_url }}">{{ location }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -36,7 +36,7 @@
                 <ul>
                     {% for sp in species %}
                         <li>
-                            <a href="{% url  'species-detail' sp.pk %}">{{ sp }}</a>
+                            <a href="{{ sp.get_absolute_url }}">{{ sp }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -50,7 +50,7 @@
                 <ul>
                     {% for genus in genera %}
                         <li>
-                            <a href="{% url  'genus-detail' genus.pk %}">{{ genus }}</a>
+                            <a href="{{ genus.get_absolute_url }}">{{ genus }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -64,7 +64,7 @@
                 <ul>
                     {% for family in families %}
                         <li>
-                            <a href="{% url  'family-detail' family.pk %}">{{ family }}</a>
+                            <a href="{{ family.get_absolute_url }}">{{ family }}</a>
                         </li>
                     {% endfor %}
                 </ul>
