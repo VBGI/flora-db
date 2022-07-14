@@ -1,7 +1,9 @@
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView, View
 from django.db.models import Q
 from .models import Family, Genus, Species, Page, Link, TitleImage, Occurrence, Location
+
 
 
 class TitleMixinView:
@@ -43,6 +45,21 @@ class OccurrenceDetailView(CommonDetailView):
 
 class SpeciesDetailView(CommonDetailView):
     model = Species
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        coordinates = []
+        species_model = ContentType.objects.get(model="species")
+        occurrences = Occurrence.objects.filter(content_type=species_model,
+                                                object_id=obj.id)
+        for occur in occurrences:
+            if occur.area:
+                coordinates.append(occur.area)
+            elif occur.location_id:
+                coordinates.append(occur.location.area)
+        context['coordinates'] = coordinates
+        return context
 
 
 class PageView(TitleMixinView, DetailView):
