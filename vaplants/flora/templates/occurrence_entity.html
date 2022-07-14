@@ -14,6 +14,10 @@
     <p><strong>Location:</strong>  <a href="{% url 'location-detail' object.location.name %}"> <em>{{ object.location }}</em> </a></p>
 {% endif %}
 
+{% if object.area %}
+    <p><strong>Coordinates:</strong>  <em>{{ object.area }}</em> </p>
+{% endif %}
+
 {{ object.info }}
 
 {% endif %}

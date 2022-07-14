@@ -158,6 +158,9 @@ class Link(UpdaterMixin, ForeignRelationMixin):
 class Occurrence(UpdaterMixin, ForeignRelationMixin, InfoMixin):
     name = models.CharField(max_length=300, default='')
     abbr = models.CharField(max_length=10, default='', blank=True)
+    location = models.ForeignKey(Location, default=None, blank=True,
+                                 related_name='occurrences', on_delete=models.CASCADE)
+    area = models.CharField(max_length=300, default='', blank=True)
 
     def __str__(self):
         return self.name.title()
