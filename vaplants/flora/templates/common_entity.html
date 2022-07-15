@@ -8,6 +8,11 @@
     <h1>{{ object }}</h1>
 {% endif %}
 
+    <script>
+    var object = "{{ coordinates }}";
+    console.log(object)
+    </script>
+
 {% if object.authorship %}
     <p><strong>Authorship:</strong>  <em>{{ object.authorship }}</em> </p>
 {% endif %}
@@ -32,7 +37,10 @@
         <ol>
             {% for ocr in object.occurrences.all %}
             <li>
-                <a href="{{ ocr.get_absolute_url }}">{{ ocr.name }}</a>
+                <a href="{{ ocr.get_absolute_url }}">
+                    {{ ocr.name }}
+                    {% if ocr.name == "Not defined" %} ({{ ocr.abbr }}){% endif %}
+                </a>
             </li>
             {% endfor %}
         </ol>

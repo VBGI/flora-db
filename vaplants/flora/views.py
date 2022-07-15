@@ -24,11 +24,41 @@ class FamilyDetailView(CommonDetailView):
     slug_field = 'name'
     slug_url_kwarg = 'name'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        coordinates = []
+        species_model = ContentType.objects.get(model="family")
+        occurrences = Occurrence.objects.filter(content_type=species_model,
+                                                object_id=obj.id)
+        for occur in occurrences:
+            if occur.area:
+                coordinates.append(occur.area)
+            elif occur.location_id:
+                coordinates.append(occur.location.area)
+        context['coordinates'] = coordinates
+        return context
+
 
 class GenusDetailView(CommonDetailView):
     model = Genus
     slug_field = 'name'
     slug_url_kwarg = 'name'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        coordinates = []
+        species_model = ContentType.objects.get(model="genus")
+        occurrences = Occurrence.objects.filter(content_type=species_model,
+                                                object_id=obj.id)
+        for occur in occurrences:
+            if occur.area:
+                coordinates.append(occur.area)
+            elif occur.location_id:
+                coordinates.append(occur.location.area)
+        context['coordinates'] = coordinates
+        return context
 
 
 class LocationDetailView(CommonDetailView):
@@ -37,10 +67,29 @@ class LocationDetailView(CommonDetailView):
     slug_field = 'name'
     slug_url_kwarg = 'name'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        coordinates = []
+        coordinates.append(obj.area)
+        context['coordinates'] = coordinates
+        return context
+
 
 class OccurrenceDetailView(CommonDetailView):
     template_name = "occurrence_entity.html"
     model = Occurrence
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        coordinates = []
+        if obj.area:
+            coordinates.append(obj.area)
+        elif obj.location_id:
+            coordinates.append(obj.location.area)
+        context['coordinates'] = coordinates
+        return context
 
 
 class SpeciesDetailView(CommonDetailView):
