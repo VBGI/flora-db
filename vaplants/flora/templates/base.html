@@ -13,14 +13,16 @@
 <body class="ultra-light-green">
 <div class="container">
           <nav class="navbar navbar-expand-md navbar-light light-green">
-                <a class="navbar-brand" href="/">Home</a>
+            <div class="flex-container">
+              <div class="container1">
+                <a class="navbar-brand" id="home-page" href="/">Home</a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" 
                         data-target="#navbarCollapsed" 
                         aria-controls="navbarCollapsed" 
                         aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
- 
 
                 <div class="collapse navbar-collapse" id="navbarCollapsed">
                     {% if pages %}
@@ -37,33 +39,43 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
-              </nav>
+              </div>
+              <div class="container2">
+                <a class="navbar-brand" href="/families">Families</a>
+                <a class="navbar-brand" href="/genera">Genera</a>
+                <a class="navbar-brand" href="/species">Species</a>          
+                <a class="navbar-brand" href="/locations">Locations</a>
+              </div>
+            </div>
+          </nav>
           
 
           {% if title_images %}
-          <div id="titleCarousel" class="carousel slide" data-ride="carousel" data-interval="10000" data-pause="true">
-              <div class="carousel-inner">
-                  {% for img in title_images %}
-                      <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                          <img src="/{{ img.image }}" class="d-block w-100" alt="{{ img.caption|striptags }}">
-                          {% if img.caption %}
-                              <div class="carousel-caption">
-                                  {{ img.caption|safe }}
-                              </div>
-                          {% endif %}
-                      </div>
-                  {% endfor %}
-              </div>
-              <a class="carousel-control-prev" href="#titleCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#titleCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+            <div class="black-block">
+              <div id="titleCarousel" class="carousel slide" data-ride="carousel" data-interval="10000" data-pause="true">
+                  <div class="carousel-inner">
+                      {% for img in title_images %}
+                          <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                              <img src="/{{ img.image }}" class="d-block w-100" alt="{{ img.caption|striptags }}">
+                              {% if img.caption %}
+                                  <div class="carousel-caption">
+                                      <div class="slide-text">Rare and Vanishing plants <br> of the Russian Far East</div>
+                                  </div>
+                              {% endif %}
+                          </div>
+                      {% endfor %}
+                  </div>
+                  <a class="carousel-control-prev" href="#titleCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#titleCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
             </div>
-            {% endif %}
+          {% endif %}
 
   <div class="row">
           <div class="col-sm-12">

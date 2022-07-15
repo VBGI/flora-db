@@ -130,3 +130,30 @@ div.pagination{
     width: 100%;
     height: 500px;
 }
+
+#home-page{
+  color: #00b809;
+  text-shadow: 1px 1px black;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container1{
+  display: flex;
+}
+
+.container2{
+  display: flex;
+}
+
+.black-block{
+  background-color: black;
+}
+
+.slide-text{
+  font-size: 50px;
+}
