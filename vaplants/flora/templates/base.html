@@ -17,16 +17,16 @@
               <div class="container1">
                 <a class="navbar-brand" id="home-page" href="/">Home</a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                        data-target="#navbarCollapsed" 
-                        aria-controls="navbarCollapsed" 
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarCollapsed"
+                        aria-controls="navbarCollapsed"
                         aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarCollapsed">
                     {% if pages %}
-                      <ul class="navbar-nav mr-auto">                 
+                      <ul class="navbar-nav mr-auto">
                         {%for page in pages %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ page.get_absolute_url }}"> {{ page.title }}</a>
@@ -43,12 +43,12 @@
               <div class="container2">
                 <a class="navbar-brand" href="/families">Families</a>
                 <a class="navbar-brand" href="/genera">Genera</a>
-                <a class="navbar-brand" href="/species">Species</a>          
+                <a class="navbar-brand" href="/species">Species</a>
                 <a class="navbar-brand" href="/locations">Locations</a>
               </div>
             </div>
           </nav>
-          
+
 
           {% if title_images %}
             <div class="black-block">

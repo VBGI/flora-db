@@ -3,7 +3,7 @@
 {% if object %}
 
 {% if object.full_name_as_html %}
-    <h1>{{ object.full_name_as_html }} ({{ object.abbr }})</h1>
+    <h1 id="entity_name">{{ object.full_name_as_html }} ({{ object.abbr }})</h1>
 {% else %}
     <h1>{{ object }}</h1>
 {% endif %}

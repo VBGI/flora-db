@@ -1,4 +1,4 @@
-let header = document.querySelector('h1').childNodes[0].innerHTML
+let header=document.getElementById('entity_name').innerHTML
 let centers = coordinates
 let body = ''
 
