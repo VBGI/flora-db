@@ -20,5 +20,24 @@
 
 {{ object.info }}
 
+<script>
+  let my_str = "{{ coordinates }}&#x27;";
+  let new_str = my_str.split('&#x27;').join('');
+  let new_str1 = new_str.split("&#39;").join('');
+  let new_str2 = new_str1.split('[').join('');
+  let new_str3 = new_str2.split(']').join('');
+  let new_str4 = new_str3.split(' ');
+  let coordinates = []
+  for(let i = 0; i < new_str4.length; i++){
+      raw_coordinates = new_str4[i].split(',')
+      coordinates.push([raw_coordinates[0], raw_coordinates[1]]);
+  }
+</script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=5c7f35d3-c0fc-4526-a93b-f13a3956ae28&lang=ru_RU"></script>
+<script src="../static/scripts/scripts.js"></script>
+<div id="map" class="map">
+
+</div>
+
 {% endif %}
 {% endblock content %}
