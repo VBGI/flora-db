@@ -1,48 +1,66 @@
 let header = document.querySelector('h1').childNodes[0].innerHTML
-let center = [43.024431, 131.894045];
+let centers = coordinates
 let body = ''
 
+console.log(coordinates)
 
 function init(){
 
-    //взятие названия местности по координатм
-    res =  ymaps.geocode(center, {
-        results: 1
-    }).then(function (res) {
-            // Выбираем первый результат геокодирования.
-            firstGeoObject = res.geoObjects.get(0);
+    // Создаем карту
+    var map = new ymaps.Map("map", {
+        center: [55, 37], // координаты центра карты, при загрузке
+        zoom: 10  // коэффициент масштабирования
+    });
 
-            body = firstGeoObject.properties.get('description');
+    //Добавляем в геокодер список адресов
+
+    var objects = ymaps.geoQuery(ymaps.geocode(centers[0], {results: 1}))
+    for(var i = 1; i < centers.length; i++){
+        objects = objects.add(ymaps.geocode(centers[i], {results: 1}))
+    }
+    // objects.addToMap(map);
 
 
-            let map = new ymaps.Map('map', {
-                center: center,
-                zoom: 16
-            })
+    // Создаем коллекцию геообъектов, в котором будут находиться эти адреса
+    var geoObjectsCollection = new ymaps.GeoObjectCollection();
+
+    // После того, как поиск вернул результат, вызывается callback-функция
+    objects.then(function () {
+
+        // добавляем координаты адресов в коллекцию geoObjectsCollection
+        objects.each(function (object) {
+
+            var coordinates = object.geometry.getCoordinates();
 
 
-            let placemark = new ymaps.Placemark(center, {
+            body = object.properties._data.description
+
+            geoObjectsCollection.add( new ymaps.Placemark(coordinates, {
                 balloonContentHeader: header,
                 balloonContentBody: body,
             }, {
                 iconLayout: 'default#image',
                 iconImageHref: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
                 iconImageSize: [30,30],
-                iconImageOffset: [-25, -30]
-            })
+                iconImageOffset: [-15, -30]
+            }));
 
-            console.log()
+        });
 
-            map.controls.remove('geolocationControl'); // удаляем геолокацию
-            map.controls.remove('trafficControl'); // удаляем контроль трафика
-            map.controls.remove('zoomControl'); // удаляем контрол зуммирования
+        // Добавляем коллекцию геообъектов на карту
+        map.geoObjects.add(geoObjectsCollection);
 
-            map.geoObjects.add(placemark)
+        // Спозиционируем карту так, чтобы на ней были видны все объекты.
+        map.setBounds(geoObjectsCollection.getBounds());
+
+        map.controls.remove('trafficControl'); // удаляем контроль трафика
+        map.controls.remove('zoomControl'); // удаляем контрол зуммирования
 
 
-            placemark.balloon.open();
 
     });
+
+
 }
 
 
